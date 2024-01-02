@@ -1,0 +1,81 @@
+https://www.baeldung.com/spring-boot-chaos-monkey
+https://codecentric.github.io/chaos-monkey-spring-boot/latest/
+
+#test cURLs
+curl -X GET http://localhost:8080/compliance/v1/screen-1
+curl -X GET http://localhost:8080/compliance/v1/screen-2
+
+
+
+#using VM args
+cd C:\Vijay\Java\projects\chaos-monkey\screening-svc
+mvn clean install
+
+java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey --chaos.monkey.enabled=true --chaos.monkey.watcher.service=true --chaos.monkey.watcher.restController=true --chaos.monkey.assaults.latencyActive=true
+java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey --chaos.monkey.enabled=true --chaos.monkey.watcher.service=true --chaos.monkey.watcher.restController=true --chaos.monkey.assaults.killApplicationActive=true
+java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey --chaos.monkey.enabled=true --chaos.monkey.watcher.service=true --chaos.monkey.watcher.restController=true --chaos.monkey.assaults.exceptionsActive=true
+java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey --chaos.monkey.enabled=true --chaos.monkey.watcher.service=true --chaos.monkey.watcher.restController=false --chaos.monkey.assaults.exceptionsActive=true
+
+
+
+#using application.properties
+
+#activate Chaos Monkey
+management.endpoint.chaosmonkey.enabled=true
+#spring.profiles.active=chaos-monkey
+
+
+#watchers
+chaos.monkey.watcher.controller=false
+chaos.monkey.watcher.restController=false
+chaos.monkey.watcher.service=true
+chaos.monkey.watcher.repository=false
+chaos.monkey.watcher.component=false
+
+#assaults
+chaos.monkey.assaults.latencyActive=true
+chaos.monkey.assaults.latencyRangeStart=3000
+chaos.monkey.assaults.latencyRangeEnd=15000
+
+chaos.monkey.assaults.exceptionsActive=false
+chaos.monkey.assaults.killApplicationActive=false
+
+#execution
+ cd C:\Vijay\Java\projects\chaos-monkey\screening-svc
+# mvn clean install
+# java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey
+## http://localhost:8080/chaosmonkey
+
+#java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey --chaos.monkey.enabled=true --chaos.monkey.watcher.service=true --chaos.monkey.watcher.restController=false --chaos.monkey.assaults.exceptionsActive=true
+
+
+
+------ screening client
+#test cURLs
+curl -X GET http://localhost:8081/loan/v1/screen-1
+curl -X GET http://localhost:8081/loan/v1/screen-2
+
+
+#execution
+# cd C:\Vijay\Java\projects\chaos-monkey\screening-client
+# mvn clean install
+# java -jar target/screening-client.jar
+
+
+
+Demo flow cmds
+start client
+        cd C:\Vijay\Java\projects\chaos-monkey\screening-client
+	mvn clean install
+	java -jar target/screening-client.jar
+
+start service  - w/o chaos  
+	cd C:\Vijay\Java\projects\chaos-monkey\screening-svc
+	mvn clean install
+	java -jar target/screening-svc-chaos-mky.jar
+	
+
+start service  - w/ chaos  
+	cd C:\Vijay\Java\projects\chaos-monkey\screening-svc
+	mvn clean install
+	java -jar target/screening-svc-chaos-mky.jar --spring.profiles.active=chaos-monkey

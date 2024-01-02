@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "98c1f214-c84f-4ba7-8df8-bbf56c048333",
+		"name": "ChaosMonkey-Screening",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "screening-chaosMky-Exception",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/screening-initiator/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"screening-initiator",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "screening-chaosMky-Exception-Handled",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/screening-initiator/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"screening-initiator",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "screening-client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/screening-initiator/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"screening-initiator",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
